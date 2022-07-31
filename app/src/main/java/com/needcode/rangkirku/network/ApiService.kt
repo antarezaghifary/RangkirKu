@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
 
-    fun getClient(): Retrofit {
+    fun getClient(): RajaOngkirEndPoint {
 
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -31,6 +31,7 @@ object ApiService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
+            .create(RajaOngkirEndPoint::class.java)
     }
 
 }
