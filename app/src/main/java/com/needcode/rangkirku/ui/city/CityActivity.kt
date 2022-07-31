@@ -2,11 +2,12 @@ package com.needcode.rangkirku.ui.city
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.needcode.rangkirku.databinding.ActivityCityBinding
 import com.needcode.rangkirku.network.ApiService
-import timber.log.Timber
+import com.needcode.rangkirku.network.Resource
 
 class CityActivity : AppCompatActivity() {
 
@@ -44,7 +45,19 @@ class CityActivity : AppCompatActivity() {
                 supportActionBar?.title = titleBar
             }
             viewModel.cityResponse.observe(this@CityActivity) { data ->
-                Timber.d("cityResponse: $data")
+                when (data) {
+                    is Resource.Loading -> {
+                        Log.e("TAG", "Loading ... ")
+                    }
+
+                    is Resource.Success -> {
+                        Log.e("TAG", "data city: ${data.data?.rajaongkir}")
+                    }
+
+                    is Resource.Error -> {
+                        Log.e("TAG", "Eror: ${data.message}")
+                    }
+                }
             }
         }
     }
