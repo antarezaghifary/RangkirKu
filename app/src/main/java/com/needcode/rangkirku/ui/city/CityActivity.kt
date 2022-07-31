@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.needcode.rangkirku.databinding.ActivityCityBinding
+import com.needcode.rangkirku.network.ApiService
 
 class CityActivity : AppCompatActivity() {
 
@@ -12,13 +13,15 @@ class CityActivity : AppCompatActivity() {
         ActivityCityBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this).get(CityViewModel::class.java)
-    }
+    private val api by lazy { ApiService.getClient() }
+    private lateinit var viewModelFactory: CityViewModelFactory
+    private lateinit var viewModel: CityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setupViewModel()
 
         viewModel.titleBar.observe(this, Observer { titleBar ->
             supportActionBar?.title = titleBar
@@ -27,6 +30,11 @@ class CityActivity : AppCompatActivity() {
         with(binding) {
 
         }
+    }
+
+    private fun setupViewModel() {
+        viewModelFactory = CityViewModelFactory(api)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CityViewModel::class.java)
     }
 
     override fun onSupportNavigateUp(): Boolean {
