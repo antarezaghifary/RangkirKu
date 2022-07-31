@@ -21,15 +21,15 @@ android {
 
     buildTypes {
         release {
-//            buildConfigField 'String', 'BASE_URL', '""'
-//            buildConfigField 'String', 'API_KEY', '""'
+            buildConfigField 'String', 'BASE_URL', '"https://pro.rajaongkir.com/api"'
+            buildConfigField 'String', 'API_KEY', '"82aab7e0170e3e31f9a2da7b61ef4bab"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-//        debug {
-//            buildConfigField 'String', 'BASE_URL', '""'
-//            buildConfigField 'String', 'API_KEY', '""'
-//        }
+        debug {
+            buildConfigField 'String', 'BASE_URL', '"https://pro.rajaongkir.com/api"'
+            buildConfigField 'String', 'API_KEY', '"82aab7e0170e3e31f9a2da7b61ef4bab"'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
