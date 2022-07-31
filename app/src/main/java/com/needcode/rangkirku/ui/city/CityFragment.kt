@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -64,16 +65,17 @@ class CityFragment : Fragment() {
             refreshCity.setOnRefreshListener {
                 viewModel.fetchCity()
             }
-            container.setOnClickListener {
-                findNavController().navigate(R.id.action_cityFragment_to_subdistrictFragment)
-            }
         }
     }
 
     private fun setupRecyclerView() {
         cityAdapter = CityAdapter(arrayListOf(), object : CityAdapter.OnAdapterListener {
             override fun onClick(result: CityResponse.Rajaongkir.Results) {
-
+                viewModel.fetchSubdistrict(result.city_id)
+                findNavController().navigate(
+                    R.id.action_cityFragment_to_subdistrictFragment,
+                    bundleOf("city_id" to result.city_id, "city_name" to result.city_name)
+                )
             }
         })
         with(binding) {
@@ -93,7 +95,7 @@ class CityFragment : Fragment() {
                     }
                 }
                 is Resource.Success -> {
-                    Log.e("TAG", "data city: ${data.data?.rajaongkir}")
+                    Log.e("TAG", "data city: ${data.data?.rajaongkir?.results}")
                     cityAdapter.addData(data.data?.rajaongkir?.results!!)
                     with(binding) {
                         refreshCity.isRefreshing = false

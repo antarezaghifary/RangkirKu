@@ -12,7 +12,7 @@ import timber.log.Timber
 import java.util.*
 
 class CityAdapter(
-    val cities: ArrayList<CityResponse.Rajaongkir.Results>,
+    var cities: ArrayList<CityResponse.Rajaongkir.Results>,
     val listener: OnAdapterListener
 ) : RecyclerView.Adapter<CityAdapter.ViewHolder>(), Filterable {
     private var citiesFilter = ArrayList<CityResponse.Rajaongkir.Results>()

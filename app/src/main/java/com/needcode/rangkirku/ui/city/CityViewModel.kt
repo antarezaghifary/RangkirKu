@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.needcode.rangkirku.network.RajaOngkirEndPoint
 import com.needcode.rangkirku.network.Resource
 import com.needcode.rangkirku.network.response.CityResponse
+import com.needcode.rangkirku.network.response.SubdistrictResponse
 import kotlinx.coroutines.launch
 
 class CityViewModel(
@@ -14,6 +15,8 @@ class CityViewModel(
 ) : ViewModel() {
     val titleBar: MutableLiveData<String> = MutableLiveData("")
     val cityResponse: MutableLiveData<Resource<CityResponse>> = MutableLiveData()
+    val subdistrictResponse: MutableLiveData<Resource<SubdistrictResponse>> = MutableLiveData()
+
 
     //Main
     init {
@@ -30,5 +33,15 @@ class CityViewModel(
             cityResponse.value = Resource.Error(e.message.toString())
         }
 
+    }
+
+    fun fetchSubdistrict(cityId: String) = viewModelScope.launch {
+        subdistrictResponse.value = Resource.Loading()
+
+        try {
+            subdistrictResponse.value = Resource.Success(api.subdistrict(cityId).body()!!)
+        } catch (e: Exception) {
+            subdistrictResponse.value = Resource.Error(e.message.toString())
+        }
     }
 }
