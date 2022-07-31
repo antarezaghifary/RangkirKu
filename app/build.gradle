@@ -94,4 +94,7 @@ dependencies {
     // Utils
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Swiperefresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 }
