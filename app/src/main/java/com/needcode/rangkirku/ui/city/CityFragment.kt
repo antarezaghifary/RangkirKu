@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -35,21 +36,34 @@ class CityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupView()
         setupListenerView()
         setupRecyclerView()
         setupObserver()
 
-        viewModel.titleBar.postValue("Pilih Kota")
-
         with(binding) {
-            //val container = AdapterCityBinding.inflate(LayoutInflater.from(requireContext()))
 
+        }
+    }
+
+    private fun setupView() {
+        with(binding) {
+            viewModel.titleBar.postValue("Pilih Kota")
         }
     }
 
 
     private fun setupListenerView() {
         with(binding) {
+            editSearch.doAfterTextChanged { data ->
+                cityAdapter.filter.filter(
+                    data.toString()
+                )
+            }
+
+            refreshCity.setOnRefreshListener {
+                viewModel.fetchCity()
+            }
             container.setOnClickListener {
                 findNavController().navigate(R.id.action_cityFragment_to_subdistrictFragment)
             }
@@ -74,13 +88,22 @@ class CityFragment : Fragment() {
             when (data) {
                 is Resource.Loading -> {
                     Log.e("TAG", "Loading ... ")
+                    with(binding) {
+                        refreshCity.isRefreshing = true
+                    }
                 }
                 is Resource.Success -> {
                     Log.e("TAG", "data city: ${data.data?.rajaongkir}")
                     cityAdapter.addData(data.data?.rajaongkir?.results!!)
+                    with(binding) {
+                        refreshCity.isRefreshing = false
+                    }
                 }
                 is Resource.Error -> {
                     Log.e("TAG", "Eror: ${data.message}")
+                    with(binding) {
+                        refreshCity.isRefreshing = false
+                    }
                 }
             }
         }
