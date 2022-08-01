@@ -4,14 +4,14 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.needcode.rangkirku.network.RajaOngkirEndPoint
+import com.needcode.rangkirku.network.RangkirRepository
 import com.needcode.rangkirku.network.Resource
 import com.needcode.rangkirku.network.response.CityResponse
 import com.needcode.rangkirku.network.response.SubdistrictResponse
 import kotlinx.coroutines.launch
 
 class CityViewModel(
-    val api: RajaOngkirEndPoint
+    val repository: RangkirRepository
 ) : ViewModel() {
     val titleBar: MutableLiveData<String> = MutableLiveData("")
     val cityResponse: MutableLiveData<Resource<CityResponse>> = MutableLiveData()
@@ -28,7 +28,7 @@ class CityViewModel(
         cityResponse.value = Resource.Loading()
 
         try {
-            cityResponse.value = Resource.Success(api.city().body()!!)
+            cityResponse.value = Resource.Success(repository.city().body()!!)
         } catch (e: Exception) {
             cityResponse.value = Resource.Error(e.message.toString())
         }
@@ -39,7 +39,7 @@ class CityViewModel(
         subdistrictResponse.value = Resource.Loading()
 
         try {
-            subdistrictResponse.value = Resource.Success(api.subdistrict(cityId).body()!!)
+            subdistrictResponse.value = Resource.Success(repository.subdistrict(cityId).body()!!)
         } catch (e: Exception) {
             subdistrictResponse.value = Resource.Error(e.message.toString())
         }

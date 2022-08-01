@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.needcode.rangkirku.database.preferences.RangkirPreferences
 import com.needcode.rangkirku.databinding.ActivityCityBinding
 import com.needcode.rangkirku.network.ApiService
+import com.needcode.rangkirku.network.RangkirRepository
 import com.needcode.rangkirku.network.Resource
 
 class CityActivity : AppCompatActivity() {
@@ -16,8 +18,10 @@ class CityActivity : AppCompatActivity() {
     }
 
     private val api by lazy { ApiService.getClient() }
+    private val pref by lazy { RangkirPreferences(this) }
     private lateinit var viewModelFactory: CityViewModelFactory
     private lateinit var viewModel: CityViewModel
+    private lateinit var repository: RangkirRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +38,8 @@ class CityActivity : AppCompatActivity() {
 
 
     private fun setupViewModel() {
-        viewModelFactory = CityViewModelFactory(api)
+        repository = RangkirRepository(api, pref)
+        viewModelFactory = CityViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CityViewModel::class.java)
     }
 
