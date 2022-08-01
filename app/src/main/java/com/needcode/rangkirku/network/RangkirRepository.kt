@@ -39,4 +39,20 @@ class RangkirRepository(
             )
         )
     }
+
+    suspend fun cost(
+        origin: String,
+        originType: String,
+        destination: String,
+        destinationType: String,
+        weight: String,
+        courier: String
+    ) = api.cost(
+        origin,
+        originType,
+        destination,
+        destinationType,
+        weight,
+        courier
+    )
 }
