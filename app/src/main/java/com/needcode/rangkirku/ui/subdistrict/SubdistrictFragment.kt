@@ -28,6 +28,10 @@ class SubdistrictFragment : Fragment() {
     private val cityName by lazy {
         requireArguments().getString("city_name")
     }
+    private val type by lazy {
+        requireActivity().intent.getStringExtra("type")
+    }
+
 
     private lateinit var subdistrictAdapter: SubdistrictAdapter
 
@@ -100,7 +104,11 @@ class SubdistrictFragment : Fragment() {
         subdistrictAdapter =
             SubdistrictAdapter(arrayListOf(), object : SubdistrictAdapter.OnAdapterListener {
                 override fun onClick(result: SubdistrictResponse.Rajaongkir.Results) {
-
+                    viewModel.save(
+                        type = type!!,
+                        id = result.subdistrict_id,
+                        name = "${cityName!!}, ${result.subdistrict_name}"
+                    )
                 }
 
             })

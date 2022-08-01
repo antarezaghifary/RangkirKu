@@ -5,23 +5,20 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.needcode.rangkirku.database.preferences.RangkirPreferences
 import com.needcode.rangkirku.databinding.ActivityCityBinding
-import com.needcode.rangkirku.network.ApiService
-import com.needcode.rangkirku.network.RangkirRepository
 import com.needcode.rangkirku.network.Resource
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class CityActivity : AppCompatActivity() {
+class CityActivity : AppCompatActivity(), KodeinAware {
 
     private val binding by lazy {
         ActivityCityBinding.inflate(layoutInflater)
     }
-
-    private val api by lazy { ApiService.getClient() }
-    private val pref by lazy { RangkirPreferences(this) }
-    private lateinit var viewModelFactory: CityViewModelFactory
     private lateinit var viewModel: CityViewModel
-    private lateinit var repository: RangkirRepository
+    override val kodein by kodein()
+    private val viewModelFactory: CityViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +35,6 @@ class CityActivity : AppCompatActivity() {
 
 
     private fun setupViewModel() {
-        repository = RangkirRepository(api, pref)
-        viewModelFactory = CityViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CityViewModel::class.java)
     }
 
@@ -71,4 +66,6 @@ class CityActivity : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
+
+
 }
