@@ -22,6 +22,7 @@ class CostFragment : Fragment() {
 
     private var originId: String? = ""
     private var destinationId: String? = ""
+    private lateinit var costAdapter: CostAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +39,11 @@ class CostFragment : Fragment() {
 
         setupObserver()
         setupListener()
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
+        costAdapter = CostAdapter(arrayListOf())
     }
 
     private fun setupListener() {
@@ -103,6 +109,8 @@ class CostFragment : Fragment() {
                 is Resource.Success -> {
                     loadingCost(false)
                     Timber.e("${it.data?.rajaongkir?.results}")
+                    costAdapter.addData(it.data?.rajaongkir?.results!!)
+                    binding.listCost.adapter = costAdapter
                 }
 
                 is Resource.Error -> {
