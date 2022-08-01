@@ -7,6 +7,7 @@ import com.needcode.rangkirku.network.ApiService
 import com.needcode.rangkirku.network.RajaOngkirEndPoint
 import com.needcode.rangkirku.network.RangkirRepository
 import com.needcode.rangkirku.ui.city.CityViewModelFactory
+import com.needcode.rangkirku.ui.cost.CostViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -34,6 +35,8 @@ class RangkirApp : Application(), KodeinAware {
         bind<RajaOngkirEndPoint>() with singleton { ApiService.getClient() }
         bind() from singleton { RangkirRepository(instance(), instance()) }
         bind() from singleton { CityViewModelFactory(instance()) }
+
+        bind() from singleton { CostViewModelFactory(instance()) }
     }
 
 }

@@ -109,6 +109,8 @@ class SubdistrictFragment : Fragment() {
                         id = result.subdistrict_id,
                         name = "${cityName!!}, ${result.subdistrict_name}"
                     )
+
+                    requireActivity().finish()
                 }
 
             })
