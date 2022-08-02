@@ -47,24 +47,34 @@ class TrackingResultFragment : Fragment() {
         setupObserver()
     }
 
-    @SuppressLint("LogNotTimber", "TimberArgCount")
+    @SuppressLint("LogNotTimber", "TimberArgCount", "SetTextI18n")
     private fun setupObserver() {
         viewModel.waybillResponse.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is Resource.Loading -> {
                     Log.e("TAG", "Loading ... ")
+                    loadingWaybill(true)
                     with(binding) {
                     }
                 }
                 is Resource.Success -> {
-                    Timber.e("data waybill: ${data.data?.rajaongkir?.result?.manifest}")
+                    loadingWaybill(false)
+                    val dataResult = data.data?.rajaongkir?.result
+                    Timber.e("data waybill: $dataResult")
                     with(binding) {
+                        textStatus.text = dataResult?.delivery_status?.status
+                        textReceiver.text = dataResult?.delivery_status?.pod_receiver
+                        textDate.text =
+                            "${dataResult?.delivery_status?.pod_date} ${dataResult?.delivery_status?.pod_time}"
+                        listManifest.adapter = TrackingResultAdapter(dataResult?.manifest!!)
                     }
                 }
                 is Resource.Error -> {
                     Log.e("TAG", "Eror: ${data.message}")
                     with(binding) {
                     }
+
+                    loadingWaybill(false)
                 }
             }
         }
@@ -76,5 +86,15 @@ class TrackingResultFragment : Fragment() {
             waybill!!,
             courier!!
         )
+    }
+
+    private fun loadingWaybill(loading: Boolean) {
+        if (loading) {
+            binding.refreshWaybill.isRefreshing = true
+            binding.container.visibility = View.GONE
+        } else {
+            binding.refreshWaybill.isRefreshing = false
+            binding.container.visibility = View.VISIBLE
+        }
     }
 }
