@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tableWaybill")
 data class WaybillEntity(
+
     //jika ada id autogen di false
     @PrimaryKey(autoGenerate = false)
     val waybill: String,

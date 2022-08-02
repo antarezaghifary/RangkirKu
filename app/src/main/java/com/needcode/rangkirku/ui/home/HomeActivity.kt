@@ -7,6 +7,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.needcode.rangkirku.databinding.ActivityHomeBinding
 import com.needcode.rangkirku.ui.cost.CostViewModel
 import com.needcode.rangkirku.ui.cost.CostViewModelFactory
+import com.needcode.rangkirku.ui.tracking.TrackingViewModel
+import com.needcode.rangkirku.ui.tracking.TrackingViewModelFactory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -17,9 +19,9 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
         ActivityHomeBinding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModel: CostViewModel
     override val kodein by kodein()
-    private val viewModelFactory: CostViewModelFactory by instance()
+    private val costFactory: CostViewModelFactory by instance()
+    private val trackingFactory: TrackingViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,9 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CostViewModel::class.java)
+        ViewModelProvider(this, costFactory).get(CostViewModel::class.java)
+        ViewModelProvider(this, trackingFactory).get(TrackingViewModel::class.java)
+
     }
 
     private fun setupTab() {

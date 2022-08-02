@@ -1,6 +1,7 @@
 package com.needcode.rangkirku.network
 
 import com.needcode.rangkirku.database.persistence.RangkirDatabase
+import com.needcode.rangkirku.database.persistence.WaybillEntity
 import com.needcode.rangkirku.database.preferences.*
 
 class RangkirRepository(
@@ -65,4 +66,13 @@ class RangkirRepository(
         waybill,
         courier
     )
+
+    suspend fun insertData(
+        waybillEntity: WaybillEntity
+    ) {
+        db.waybillDao().insert(waybillEntity)
+    }
+
+    fun getData() = db.waybillDao().select()
+
 }
