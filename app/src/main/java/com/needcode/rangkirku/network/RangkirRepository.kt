@@ -75,4 +75,10 @@ class RangkirRepository(
 
     fun getData() = db.waybillDao().select()
 
+    suspend fun deleteData(
+        waybillEntity: WaybillEntity
+    ) {
+        db.waybillDao().delete(waybillEntity)
+    }
+
 }

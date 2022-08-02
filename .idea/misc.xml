@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/adapter_service.xml" value="0.22" />
         <entry key="app/src/main/res/layout/adapter_subdistrict.xml" value="0.2" />
         <entry key="app/src/main/res/layout/adapter_tracking.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/adapter_waybill.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_city.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_cost.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_subdistrict.xml" value="0.2" />

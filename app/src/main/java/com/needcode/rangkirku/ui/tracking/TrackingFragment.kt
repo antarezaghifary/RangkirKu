@@ -15,6 +15,9 @@ import com.needcode.rangkirku.databinding.FragmentTrackingBinding
 class TrackingFragment : Fragment() {
 
     private lateinit var binding: FragmentTrackingBinding
+    private val isTracking by lazy {
+        requireActivity().intent.getBooleanExtra("is_tracking", false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +38,18 @@ class TrackingFragment : Fragment() {
     }
 
     private fun setupListener() {
+
+        //cek
+        if (isTracking) {
+            findNavController().navigate(
+                R.id.action_trackingFragment_to_trackingResultFragment,
+                bundleOf(
+                    "waybill" to requireActivity().intent.getStringExtra("is_waybill"),
+                    "courier" to requireActivity().intent.getStringExtra("is_courier")
+                )
+            )
+        }
+
         val courierAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.courier,

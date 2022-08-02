@@ -41,7 +41,12 @@ class TrackingResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-
+            refreshWaybill.setOnRefreshListener {
+                viewModel.postWaybill(
+                    waybill!!,
+                    courier!!
+                )
+            }
         }
 
         setupObserver()

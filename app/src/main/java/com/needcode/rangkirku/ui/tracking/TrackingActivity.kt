@@ -38,8 +38,12 @@ class TrackingActivity : AppCompatActivity(), KodeinAware {
         supportActionBar?.title = "Lacak Nomer Resi"
     }
 
-    override fun onNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onNavigateUp()
+
+    override fun onBackPressed() {
+        if (intent.getBooleanExtra("is_tracking", false)) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

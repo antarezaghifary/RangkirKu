@@ -44,4 +44,10 @@ class TrackingViewModel(
             )
         )
     }
+
+    fun deleteData(data: WaybillEntity) = viewModelScope.launch {
+        repository.deleteData(
+            data
+        )
+    }
 }
