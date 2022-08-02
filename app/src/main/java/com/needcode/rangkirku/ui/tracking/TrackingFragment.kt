@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -44,13 +45,18 @@ class TrackingFragment : Fragment() {
         binding.listCourier.adapter = courierAdapter
 
         binding.buttonTrack.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_trackingFragment_to_trackingResultFragment,
-                bundleOf(
-                    "waybill" to binding.editWaybill.text.toString(),
-                    "courier" to binding.listCourier.selectedItem.toString()
+
+            if (binding.editWaybill.text.isNullOrEmpty() || binding.editWaybill.text.isNullOrBlank()) {
+                Toast.makeText(requireContext(), "Masukkan Nomer Resi", Toast.LENGTH_SHORT).show()
+            } else {
+                findNavController().navigate(
+                    R.id.action_trackingFragment_to_trackingResultFragment,
+                    bundleOf(
+                        "waybill" to binding.editWaybill.text.toString(),
+                        "courier" to binding.listCourier.selectedItem.toString()
+                    )
                 )
-            )
+            }
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.needcode.rangkirku.network
 
+import com.needcode.rangkirku.database.persistence.RangkirDatabase
 import com.needcode.rangkirku.database.preferences.*
 
 class RangkirRepository(
     private val api: RajaOngkirEndPoint,
-    private val pref: RangkirPreferences
+    private val pref: RangkirPreferences,
+    private val db: RangkirDatabase
 ) {
 
     //fetchCity(): Response<CityResponse>{return api.city()}

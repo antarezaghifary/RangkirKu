@@ -2,6 +2,7 @@ package com.needcode.rangkirku
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.needcode.rangkirku.database.persistence.RangkirDatabase
 import com.needcode.rangkirku.database.preferences.RangkirPreferences
 import com.needcode.rangkirku.network.ApiService
 import com.needcode.rangkirku.network.RajaOngkirEndPoint
@@ -33,8 +34,12 @@ class RangkirApp : Application(), KodeinAware {
             RangkirPreferences(instance())
         }
 
+        bind() from singleton {
+            RangkirDatabase(instance())
+        }
+
         bind<RajaOngkirEndPoint>() with singleton { ApiService.getClient() }
-        bind() from singleton { RangkirRepository(instance(), instance()) }
+        bind() from singleton { RangkirRepository(instance(), instance(), instance()) }
         bind() from singleton { CityViewModelFactory(instance()) }
         bind() from singleton { CostViewModelFactory(instance()) }
         bind() from singleton { TrackingViewModelFactory(instance()) }
