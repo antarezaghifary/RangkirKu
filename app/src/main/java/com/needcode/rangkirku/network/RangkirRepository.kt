@@ -55,4 +55,12 @@ class RangkirRepository(
         weight,
         courier
     )
+
+    suspend fun waybill(
+        waybill: String,
+        courier: String
+    ) = api.waybill(
+        waybill,
+        courier
+    )
 }

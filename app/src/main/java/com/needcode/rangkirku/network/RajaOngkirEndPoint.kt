@@ -3,6 +3,7 @@ package com.needcode.rangkirku.network
 import com.needcode.rangkirku.network.response.CityResponse
 import com.needcode.rangkirku.network.response.CostResponse
 import com.needcode.rangkirku.network.response.SubdistrictResponse
+import com.needcode.rangkirku.network.response.WaybillResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -26,4 +27,11 @@ interface RajaOngkirEndPoint {
         @Field("weight") weight: String,
         @Field("courier") courier: String
     ): Response<CostResponse>
+
+    @FormUrlEncoded
+    @POST("waybill")
+    suspend fun waybill(
+        @Field("waybill") waybill: String,
+        @Field("courier") courier: String
+    ): Response<WaybillResponse>
 }

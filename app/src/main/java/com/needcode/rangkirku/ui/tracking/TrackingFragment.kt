@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.needcode.rangkirku.R
 import com.needcode.rangkirku.databinding.FragmentTrackingBinding
 
@@ -40,6 +42,15 @@ class TrackingFragment : Fragment() {
 
         courierAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.listCourier.adapter = courierAdapter
-    }
 
+        binding.buttonTrack.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_trackingFragment_to_trackingResultFragment,
+                bundleOf(
+                    "waybill" to binding.editWaybill.text.toString(),
+                    "courier" to binding.listCourier.selectedItem.toString()
+                )
+            )
+        }
+    }
 }
