@@ -2,12 +2,8 @@
 
 This application is an application for check ongkir. and the features are:
 
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
+1. Check shipping from city a to city b
+2. View history / history using receipt number
 
 ## Stacks & Libraries
 
