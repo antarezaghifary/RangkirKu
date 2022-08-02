@@ -33,7 +33,7 @@ This application is an application for check ongkir. and the features are:
 | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img1.jpeg?raw=true) | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img2.jpeg?raw=true) | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img3.jpeg?raw=true) |
 | :---: | :---: | :---: |
 | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img4.jpeg?raw=true) | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img5.jpeg?raw=true) | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img6.jpeg?raw=true) |
-
+| :---: | :---: | :---: |
 | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img7.jpeg?raw=true) | ![](https://github.com/antarezaghifary/RangkirKu/blob/master/screenshot/img8.jpeg?raw=true) |
 
 Thank you, cheers.
